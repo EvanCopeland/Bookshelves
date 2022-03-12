@@ -31,7 +31,10 @@ if (x == 1):
     for i in range (len(array)):
         file.write(array[i])
     file.close()
-    
+    #add file name to bookshelflist file
+    file = open ("bookshelflist", "a")
+    file.write(name)
+    file.close()
 elif (x == 2):
     #display files
     #have user choose file
