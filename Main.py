@@ -2,8 +2,8 @@
 #Date: 3/7/2022
 #output: Main for bookshelf project
 import creation
-#have user decide whether to create a file, access a file, or search through all files
-x = int(input("Are you creating a new file(1), accessing one(2), or searching through all files (3)"))
+#have user decide whether to create a new collection, manage a collection, or search through all collections
+x = int(input("Are you creating a new file (1), accessing one (2), searching through all files (3), press other key to quit"))
 #check user decision
 if (x == 1):
     #asks user for name of book collection
@@ -20,6 +20,7 @@ if (x == 1):
     file.close()
 elif (x == 2):
     #display files
+    file = open("bookshelflist", "a")
     #have user choose file
     #binary search within file and determine shelf #
     #present file contents
@@ -32,6 +33,6 @@ elif (x == 3):
     #present to user if found and in which lists on which shelf
     print("option under construction")
 else:
-    print("option not available")
+    quit()
         
     
