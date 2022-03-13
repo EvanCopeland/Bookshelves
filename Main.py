@@ -1,36 +1,19 @@
 #Programmers: Evan Copeland
 #Date: 3/7/2022
 #output: Main for bookshelf project
-
+import creation
 #have user decide whether to create a file, access a file, or search through all files
 x = int(input("Are you creating a new file(1), accessing one(2), or searching through all files (3)"))
-array = []
 #check user decision
 if (x == 1):
-    #ask user for name of bookshelf
+    #asks user for name of book collection
     name = str(input("please enter a name for the new collection: "))
-    #have user create list
-    book = ""
-    while( book != "done"):
-        book = str(input("please enter book title, type done to finish: "))
-        array.append(book)
-    print("sorting...")
+    #create list
+    array = creation.createlist()
     #sort list
-    for i in range (len(array)):
-        for j in range (0, len(array)-1):
-            if(array[j] > array[j+1]):
-               temp = array[j]
-               array[j] = array[j+1]
-               array[j+1] = temp
-    #present sorted list
-    print(array)
+    array = creation.bubblesort(array)
     #write sorted list to file
-    file = open(name, "x")
-    file.close()
-    file = open (name, "a")
-    for i in range (len(array)):
-        file.write(array[i])
-    file.close()
+    creation.filecreation(name, array)
     #add file name to bookshelflist file
     file = open ("bookshelflist", "a")
     file.write(name)
