@@ -19,11 +19,14 @@ def bubblesort(array):
     #present sorted list
     print(array)
     return array
-def filecreation(name, array):
+def filecreation(name, array, shelves):
     file = open(name, "x")
     file.close()
     file = open (name, "a")
+    file.write(str(shelves))
+    file.write("\n")
     for i in range (len(array)):
         file.write(array[i])
+        file.write("\n")
     file.close()
     

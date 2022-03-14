@@ -14,10 +14,11 @@ if (x == 1):
     #sort list
     array = creation.bubblesort(array)
     #write sorted list to file
-    creation.filecreation(name, array)
+    creation.filecreation(name, array, shelves)
     #add file name to bookshelflist file
     file = open ("bookshelflist", "a")
     file.write(name)
+    file.write("\n")
     file.close()
 elif (x == 2):
     #display files
