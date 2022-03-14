@@ -23,7 +23,7 @@ def filecreation(name, array, shelves):
     file = open(name, "x")
     file.close()
     file = open (name, "a")
-    file.write(str(shelves))
+    file.write("shelves: "+str(shelves))
     file.write("\n")
     for i in range (len(array)):
         file.write(array[i])
