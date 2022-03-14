@@ -67,7 +67,10 @@ elif (x == 2):
                 for i in range(len(linelist)):
                     if(linelist[i] == search):
                         shelfnumber = round((i+1)/bookspershelf)
-                        print(search + " found on shelf "+ str(shelfnumber) + " next to "+ linelist[i-1] + " and "+linelist[i+1])
+                        search2 = search.strip()
+                        neighbor1 = linelist[i-1].strip()
+                        neighbor2 = linelist[i+1].strip()
+                        print(search2 + " found on shelf "+ str(shelfnumber) + " next to "+ neighbor1 + " and " + neighbor2)
                 file = open(name,"w")
                 file.write("shelves: " + chr(shelves+48) + "\n")
                 for i in range (len(linelist)):
@@ -79,17 +82,35 @@ elif (x == 2):
                 newbook = str(input("enter the name of the book you have acquired: "))
                 file = open(name, "a")
                 file.write("\n"+newbook)
-                #sort file 
+                file.close()
                 print("book added!")
+                #sort file 
+                file = open(name, "r+")
+                linelist = file.readlines()
+                file.close
+                for i in range (len(linelist)-1):
+                    linelist[i] = linelist[i].strip()
+                shelves = linelist[0]
+                linelist.remove(shelves)
+                linelist = creation.bubblesort(linelist)
+                #remove \n's do it do it do it
+                file = open(name,"w")
+                linelist[0] = shelves
+                for i in range (len(linelist)):
+                    file.write(linelist[i])
+                    file.write("\n")
+                file.close
+                print("done!")
                 return
             case 5:
                 #remove from file
+                print("option under construction")
                 return
             case 6:
                 #look up book
+                print("option under construction")
                 return
     choices(x)
-    print("option under construction")
 elif (x == 3):
     #put all files into lists
     #allow binary search
