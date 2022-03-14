@@ -78,23 +78,26 @@ elif (x == 2):
                 file.close()
                 return
             case 4:
-                #add to file
+                #add book to file
                 newbook = str(input("enter the name of the book you have acquired: "))
                 file = open(name, "a")
                 file.write("\n"+newbook)
                 file.close()
                 print("book added!")
-                #sort file 
+                #sort the file contents
                 file = open(name, "r+")
                 linelist = file.readlines()
                 file.close
+                #strip the line list elements of new lines
                 for i in range (len(linelist)-1):
                     linelist[i] = linelist[i].strip()
+                #store shelf # and remove from line list
                 shelves = linelist[0]
                 linelist.remove(shelves)
+                #call sort function to sort
                 linelist = creation.bubblesort(linelist)
-                #remove \n's do it do it do it
                 file = open(name,"w")
+                #add shelf # back into line list and write back to file
                 linelist[0] = shelves
                 for i in range (len(linelist)):
                     file.write(linelist[i])
