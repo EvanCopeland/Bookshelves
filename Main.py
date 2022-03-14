@@ -6,7 +6,7 @@ import creation
 x = int(input("Are you creating a new collection (1), accessing one (2) or searching through all collection (3), press other key to quit: "))
 #check user decision
 if (x == 1):
-    #asks user for name and # of shelves of book collection
+    #asks user for name and # of shelves of the book collection
     name = str(input("please enter a name for the new collection: "))
     shelves = int(input("please enter the number of shelves this collection will be stored on: "))
     #create list
