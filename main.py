@@ -51,28 +51,7 @@ elif (x == 2):
             case 3:
                 #search and shelf #
                 search = str(input("please enter the book you are searching for"))
-                search = search+"\n"
-                linelist = management.turnintolist(name)
-                shelves = linelist[0]
-                linelist.remove(shelves)
-                #converting ascii value of shelf number to its original integer value
-                shelves = ord(shelves[9])-48
-                #finding books per shelf for shelf # calculation
-                bookspershelf = (len(linelist)+1)/shelves
-                #searching
-                for i in range(len(linelist)):
-                    if(linelist[i] == search):
-                        shelfnumber = round((i+1)/bookspershelf)
-                        search2 = search.strip()
-                        neighbor1 = linelist[i-1].strip()
-                        neighbor2 = linelist[i+1].strip()
-                        print(search2 + " found on shelf " + str(shelfnumber) + " next to " + neighbor1 + " and " + neighbor2)
-                file = open(name,"w")
-                file.write("shelves: " + chr(shelves + 48) + "\n")
-                for i in range (len(linelist)):
-                    file.write(linelist[i])
-                file.close()
-                return
+                management.linearsearch(name, search)
             case 4:
                 #add book to file
                 newbook = str(input("enter the name of the book you have acquired: "))
@@ -126,9 +105,12 @@ elif (x == 3):
     search = str(input("enter book you are looking for: "))
     linelist = management.turnintolist("bookshelflist")
     print(linelist)
-    for i in range (len(linelist)-1):
+    for i in range (len(linelist)):
         linelist[i] = linelist[i].strip()
     # use each element in line list to prompt search for each element in line list
+    for i in range (len(linelist)):
+        print("searching in collection: " + linelist[i])
+        management.linearsearch(linelist[i], search)
     file = open("bookshelflist", "w")
     for i in range (len(linelist)):
         file.write(linelist[i])
