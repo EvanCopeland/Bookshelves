@@ -93,23 +93,17 @@ elif (x == 2):
                 file = open(name,"w")
                 #add shelf # back into line list and write back to file
                 linelist[0] = shelves
-                for i in range (len(linelist)):
-                    file.write(linelist[i])
-                    file.write("\n")
-                file.close()
+                management.backtolist(name, linelist)
                 print("done!")
                 return
             case 5:
                 #remove from file
                 oldbook = str(input("what is the name of the book you would like to get rid of?"))
-                management.turnintolist(name)
+                linelist = management.turnintolist(name)
                 for i in range (len(linelist)):
                     linelist[i] = linelist[i].strip()
                 linelist.remove(oldbook)
-                file = open(name, "w")
-                for i in range (len(linelist)):
-                    file.write(linelist[i])
-                    file.write("\n")
+                management.backtolist(name, linelist)
                 print("book removed")
                 return
             case 6:
