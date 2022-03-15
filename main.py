@@ -81,7 +81,7 @@ elif (x == 2):
                 file.close()
                 print("book added!")
                 #sort the file contents
-                management.turnintolist(name)
+                linelist = management.turnintolist(name)
                 #strip the line list elements of new lines
                 for i in range (len(linelist)-1):
                     linelist[i] = linelist[i].strip()
@@ -96,7 +96,7 @@ elif (x == 2):
                 for i in range (len(linelist)):
                     file.write(linelist[i])
                     file.write("\n")
-                file.close
+                file.close()
                 print("done!")
                 return
             case 5:
