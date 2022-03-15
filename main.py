@@ -5,7 +5,7 @@ import creation
 import management
 from isbntools.app import *
 #have user decide whether to create a new collection, manage a collection, or search through all collections
-x = int(input("Are you creating a new collection (1), accessing one collection(2) or searching through all collections (3), press other key to quit: "))
+x = int(input("\n1. Are you creating a new collection\n2. accessing one collection\n3. or searching through all collections\npress other key to quit: "))
 #check user decision
 if (x == 1):
     #asks user for name and # of shelves of the book collection
@@ -98,8 +98,7 @@ elif (x == 2):
                 query = isbn
                 for i in search(query, tld = "com", num = 10, stop = 10, pause = 4):
                     print(i)
-                
-                
+                       
     choices(x)
 elif (x == 3):
     search = str(input("enter book you are looking for: "))
