@@ -2,6 +2,8 @@
 #Date: 3/7/2022
 #output: Main for bookshelf project
 import creation
+import management
+from isbntools.app import *
 #have user decide whether to create a new collection, manage a collection, or search through all collections
 x = int(input("Are you creating a new collection (1), accessing one collection(2) or searching through all collections (3), press other key to quit: "))
 #check user decision
@@ -21,30 +23,26 @@ if (x == 1):
     file.write("\n")
     file.close()
 elif (x == 2):
-    #display files
+    #display files through bookshelflist
     file = open("bookshelflist", "r")
-    #read contents
     print(file.read())
     file.close()
     #have user choose file
     name = str(input("which collection would you like to access? "))
-    x = int(input("What operation would you like to perform?\n1. display collection contents\n2. edit shelf number\n3. search collection for book\n4. add to collection\5. remove from collection\n6. look up new book\n"))
-    #create
+    x = int(input("What operation would you like to perform?\n1. display books in "+name+"\n2. edit shelf numbers in "+name+"\n3. search "+name+" for book\n4. add book to "+name+"\n5. remove book from "+name+"\n6. look up new book for "+name+"\n"))
     def choices(x):
         match x:
             case 1:
-                file = open(name, "r+")
+                file = open(name, "r")
                 print(file.read())
                 return
             case 2:
                 #edit # of shelves
-                file = open(name, "r+")
-                linelist=file.readlines()
+                linelist = management.turnintolist(name)
                 currentshelves = linelist[0]
                 print("current number of shelves = "+currentshelves)
                 newshelves = str(input("please enter new number of shelves: "))
                 linelist[0] = "shelves: "+newshelves+"\n"
-                file.close()
                 file = open(name, "w")
                 for i in range (len(linelist)):
                     file.write(linelist[i])
@@ -52,11 +50,9 @@ elif (x == 2):
                 return
             case 3:
                 #search and shelf #
-                search = str(input("please enter book you are searching for"))
+                search = str(input("please enter the book you are searching for"))
                 search = search+"\n"
-                file = open(name, "r+")
-                linelist = file.readlines()
-                file.close()
+                linelist = management.turnintolist(name)
                 shelves = linelist[0]
                 linelist.remove(shelves)
                 #converting ascii value of shelf number to its original integer value
@@ -70,9 +66,9 @@ elif (x == 2):
                         search2 = search.strip()
                         neighbor1 = linelist[i-1].strip()
                         neighbor2 = linelist[i+1].strip()
-                        print(search2 + " found on shelf "+ str(shelfnumber) + " next to "+ neighbor1 + " and " + neighbor2)
+                        print(search2 + " found on shelf " + str(shelfnumber) + " next to " + neighbor1 + " and " + neighbor2)
                 file = open(name,"w")
-                file.write("shelves: " + chr(shelves+48) + "\n")
+                file.write("shelves: " + chr(shelves + 48) + "\n")
                 for i in range (len(linelist)):
                     file.write(linelist[i])
                 file.close()
@@ -85,9 +81,7 @@ elif (x == 2):
                 file.close()
                 print("book added!")
                 #sort the file contents
-                file = open(name, "r+")
-                linelist = file.readlines()
-                file.close
+                management.turnintolist(name)
                 #strip the line list elements of new lines
                 for i in range (len(linelist)-1):
                     linelist[i] = linelist[i].strip()
@@ -107,17 +101,45 @@ elif (x == 2):
                 return
             case 5:
                 #remove from file
-                print("option under construction")
+                oldbook = str(input("what is the name of the book you would like to get rid of?"))
+                management.turnintolist(name)
+                for i in range (len(linelist)):
+                    linelist[i] = linelist[i].strip()
+                linelist.remove(oldbook)
+                file = open(name, "w")
+                for i in range (len(linelist)):
+                    file.write(linelist[i])
+                    file.write("\n")
+                print("book removed")
                 return
             case 6:
                 #look up book
-                print("option under construction")
-                return
+                prompt = str(input("enter key words (I.E: author, title, series) for the book you want to add to "+name+": "))
+                isbn = isbn_from_words(prompt)
+                print("\nISBN: " + isbn)
+                print("\nsearching on google...")
+                try:
+                    from googlesearch import search
+                except ImportError:
+                    print("google module not working :(")
+                query = isbn
+                for i in search(query, tld = "com", num = 10, stop = 10, pause = 4):
+                    print(i)
+                
+                
     choices(x)
 elif (x == 3):
-    #put all files into lists
-    #allow binary search
-    #present to user if found and in which lists on which shelf
+    search = str(input("enter book you are looking for: "))
+    linelist = management.turnintolist("bookshelflist")
+    print(linelist)
+    for i in range (len(linelist)-1):
+        linelist[i] = linelist[i].strip()
+    # use each element in line list to prompt search for each element in line list
+    file = open("bookshelflist", "w")
+    for i in range (len(linelist)):
+        file.write(linelist[i])
+        file.write("\n")
+    file.close()
     print("option under construction")
 else:
     quit()
