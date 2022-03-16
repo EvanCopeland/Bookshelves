@@ -33,8 +33,11 @@ elif (x == 2):
     def choices(x):
         match x:
             case 1:
-                file = open(name, "r")
-                print(file.read())
+                linelist = management.turnintolist(name)
+                for i in range (len(linelist)):
+                    linelist[i] = linelist[i].strip()
+                    print(linelist[i]+"\n")
+                management.backtolist(name, linelist)
                 return
             case 2:
                 #edit # of shelves
